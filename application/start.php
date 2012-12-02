@@ -171,3 +171,8 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 {
 	Session::load();
 }
+
+/**
+ * Helpers
+ */
+require_once('helpers/password.php');
