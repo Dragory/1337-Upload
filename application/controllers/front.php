@@ -7,9 +7,17 @@ class Front_Controller extends Base_Controller
 
     public function __contruct()
     {
-        $this->layout->nest('menu', '__menu');     // The main menu
-        $this->layout->nest('header', '__header'); // User actions, login, blog, etc.
-        $this->layout->nest('footer', '__footer'); // Credits, quick links, etc.
+        $auth = new Authentication;
+        $users = new Users;
+
+        $id_user = $auth->getCurrentUser();
+        if ($id_user != null) $this->currentUser = $users->getUser($id_user);
+
+        $this->layout->nest('header',  '__header');  // Logo, search, menu
+        $this->layout->nest('userbar', '__userbar', ['user' => $this->currentUser]); // User actions, login, blog, etc.
+        $this->layout->nest('footer',  '__footer');  // Credits, quick links, etc.
+
+        $this->layout->nest('status',  '__status', Status::getMessages(true)); // Status messages i.e. errors, successes and possibly other messages too
     }
 
     /**
@@ -29,6 +37,8 @@ class Front_Controller extends Base_Controller
     {
         // Only allow logged in users to access this
         if ($this->currentUser == null) return Redirect::to_route('index');
+
+        $this->layout->nest('content', 'upload');
     }
 
     /**
