@@ -7,9 +7,10 @@ pre_users
 ---------
 id_user             INT, primary key  
 id_group            INT, key  
-user_invited_by     INT, key  
+id_inviter          INT, key  
 user_username       VARCHAR(32), key  
 user_hash           TEXT  
+user_hash_prev      VARCHAR(40) // The previous hash of the user (before asking them to update their password - should be removed after that)  
 user_email          VARCHAR(128)  
 user_time_reg       DATETIME  
 user_time_act       DATETIME, key  
