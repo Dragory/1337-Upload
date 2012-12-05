@@ -38,3 +38,6 @@ publish
 
 # The files folder
 /files
+
+# Database config
+/application/config/database.php
