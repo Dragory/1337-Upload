@@ -1,6 +1,6 @@
 <?php if ($user): ?>
     <div id="userbar">
-
+        <a href="{{ URL::to_route('profile') }}">{{ $user->user_username }}</a>
     </div>
 <?php else: ?>
     <div id="userbar">

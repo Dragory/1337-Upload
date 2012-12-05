@@ -93,6 +93,8 @@ a {
         width: 800px;
         margin: 0 auto;
         text-align: left;
+
+        padding: 0 0 24px 0;
     }
         #userbar {
             float: left;
@@ -146,3 +148,20 @@ a {
         margin: 0 auto;
         text-align: left;
     }
+
+/**
+ * Password updating page
+ */
+#content-password-wrap {
+    margin: 24px 0 0 0;
+    border: 1px solid #aaa;
+    padding: 0 16px 16px 16px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 #eee;
+
+    font-size: 1.2em;
+}
+#content-password-wrap .form-field {
+    width: 260px;
+}

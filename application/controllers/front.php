@@ -58,7 +58,7 @@ class Front_Controller extends Base_Controller
         else
         {
             Status::addError(__('error.login_failed'));
-            return Redirect::to_route('login');
+            return Redirect::to_route('index');
         }
     }
 
@@ -82,7 +82,11 @@ class Front_Controller extends Base_Controller
         // Only allow logged in users to access this
         if ($this->currentUser == null) return Redirect::to_route('index');
 
-        $this->layout->nest('content', 'upload');
+        // Prompt the user to update their password to the new "method"
+        if ($this->currentUser && !$this->currentUser->user_updated_pass) return Redirect::to_route('legacy_password');
+
+        $this->loadPage('upload');
+        // $this->layout->nest('content', 'upload');
     }
 
     /**

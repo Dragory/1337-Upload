@@ -24,7 +24,7 @@ class Authentication
 
         // See if a user exists with the given login token
         $user = DB::table('users')
-            ->where('user_loginToken', '=', $token)
+            ->where('user_token', '=', $token)
             ->first();
 
         // If a user was not found for the login token,
@@ -118,16 +118,26 @@ class Authentication
             ->where(DB::raw('LOWER(user_username)'), '=', strtolower($username))
             ->first();
 
-        if ($user == null) return false;
+        if (!$user) return false;
 
         // Check the password
-        if (!password_verify($password, $user->user_hash)) return false;
+        // If we have updated our password to the new system, check that
+        if ($user->user_updated_pass)
+        {
+            if (!password_verify($password, $user->user_hash)) return false;
+        }
+        // And if we have not, use the previous method
+        // Remember to ask them to update their password!
+        else
+        {
+            if (!$this->checkLegacyPassword($username, $password)) return false;
+        }
 
         // Do we have a login token?
         if ($user->user_token == null)
         {
             $token = $this->generateLoginToken();
-            DB::table('users')->update(['user_loginToken' => $token]);
+            DB::table('users')->update(['user_token' => $token]);
         }
         else
         {
@@ -139,6 +149,30 @@ class Authentication
 
         if ($stayLogged)
             Cookie::put($this->tokenName, $token);
+
+        return true;
+    }
+
+    public function checkLegacyPassword($username, $password)
+    {
+        $hash = sha1(strtolower($username).$password);
+        $user = DB::table('users')
+            ->where('user_hash_prev', '=', $hash)
+            ->first();
+
+        if ($user) return true;
+        return false;
+    }
+
+    public function changePassword($id_user, $password)
+    {
+        $hash = password_hash($password, $this->cryptMethod, $this->cryptOptions);
+        DB::table('users')
+            ->where('id_user', '=', intval($id_user))
+            ->update([
+                'user_hash' => $hash,
+                'user_updated_pass' => 1
+            ]);
 
         return true;
     }
@@ -167,7 +201,7 @@ class Authentication
 
             // Check if it exists in the database
             $tokenUser = DB::table('users')
-                ->where('user_loginToken', '=', $token)
+                ->where('user_token', '=', $token)
                 ->first();
 
             if ($tokenUser == null) $isUnique = true;
