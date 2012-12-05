@@ -1,6 +1,17 @@
-<div id="userbar">
-    Blah blah
-</div>
-<div id="blogbar">
-    Blah blah
-</div>
+<?php if ($user): ?>
+    <div id="userbar">
+
+    </div>
+<?php else: ?>
+    <div id="userbar">
+        <div id="userbar-login">
+            {{ Form::start(URL::to_route('login_post')) }}
+                <input id="login-user" class="form-field" type="text" name="username" placeholder="{{ __('front.login_username') }}"><input id="login-pass" class="form-field" type="password" name="password" placeholder="{{ __('front.login_password') }}">
+                <input id="login-submit" type="submit" value="{{ __('front.login_submit') }}">
+            {{ Form::end() }}
+        </div>
+    </div>
+    <div id="blogbar">
+        <a href="">{{ __('front.link_register') }}</a>
+    </div>
+<?php endif; ?>

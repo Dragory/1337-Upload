@@ -32,10 +32,22 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+Route::get('/', ['as' => 'index', 'uses' => 'front@index']);
+
+Route::get('upload', ['as' => 'upload', 'uses' => 'front@upload']);
+Route::get('blog', ['as' => 'blog', 'uses' => 'front@blog']);
+Route::get('filelist', ['as' => 'filelist', 'uses' => 'front@filelist']);
+Route::get('support', ['as' => 'support', 'uses' => 'front@support']);
+Route::get('admin', ['as' => 'admin', 'uses' => 'front@admin']);
+
+Route::get('misc', ['as' => 'misc', 'uses' => 'front@misc']);
+Route::get('misc/(:any)', ['as' => 'misc_sub', 'uses' => 'front@misc']);
+
+// Searching
+Route::get('search/(:any)', ['as' => 'search', 'uses' => 'front@search']);
+
+// Logging in
+Route::post('/login_post', ['as' => 'login_post', 'uses' => 'front@login_post', 'before' => 'csrf']);
 
 /*
 |--------------------------------------------------------------------------

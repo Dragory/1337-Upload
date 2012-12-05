@@ -3,21 +3,63 @@
 class Front_Controller extends Base_Controller
 {
     protected $currentUser = null;
-    public $layout = '__layout';
+    public $layout = '__layout', $title = [];
 
-    public function __contruct()
+    public function __construct()
     {
+        parent::__construct();
+
         $auth = new Authentication;
         $users = new Users;
 
         $id_user = $auth->getCurrentUser();
         if ($id_user != null) $this->currentUser = $users->getUser($id_user);
 
-        $this->layout->nest('header',  '__header');  // Logo, search, menu
+        $this->title = ['1337 Upload'];
+    }
+
+    protected function loadPage($view, Array $title = null, $data = null)
+    {
+        if ($title)
+            foreach ($title as $part)
+                $this->title[] = $part;
+
+        $this->layout->title = implode(' &raquo; ', $this->title);
+
+        $this->layout->nest('header',  '__header',  ['user' => $this->currentUser]);  // Logo, search, menu
         $this->layout->nest('userbar', '__userbar', ['user' => $this->currentUser]); // User actions, login, blog, etc.
         $this->layout->nest('footer',  '__footer');  // Credits, quick links, etc.
 
         $this->layout->nest('status',  '__status', Status::getMessages(true)); // Status messages i.e. errors, successes and possibly other messages too
+
+        $this->layout->nest('content', $view, $data);
+    }
+
+    public function action_login_post()
+    {
+        $username   = Input::get('username');
+        $password   = Input::get('password');
+        $stayLogged = (Input::get('stayLogged') ? true : false);
+
+        if (!$username || !$password)
+        {
+            Status::addError(__('error.login_empty_fields'));
+            return Redirect::to_route('index');
+        }
+
+        $auth = new Authentication;
+        $login = $auth->login($username, $password, $stayLogged);
+
+        if ($login)
+        {
+            Status::addSuccess(__('success.login_successful'));
+            return Redirect::to_route('upload');
+        }
+        else
+        {
+            Status::addError(__('error.login_failed'));
+            return Redirect::to_route('login');
+        }
     }
 
     /**
@@ -28,6 +70,8 @@ class Front_Controller extends Base_Controller
     {
         // Only allow users to access this page if they are not logged in
         if ($this->currentUser != null) return Redirect::to_route('upload');
+
+        $this->loadPage('index');
     }
 
     /**

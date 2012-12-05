@@ -9,7 +9,7 @@ class Authentication
 
     private $tokenChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-    private $authAttemptTimeout = 60*60*2;
+    private $authAttemptTimeout = 7200;
 
     /**
      * Checks if the visitor is logged in and returns

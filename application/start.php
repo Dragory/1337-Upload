@@ -176,3 +176,4 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
  * Helpers
  */
 require_once('helpers/password.php');
+require_once('helpers/formmacros.php');
