@@ -72,7 +72,7 @@ return array(
 			'host'     => 'localhost',
 			'database' => 'database',
 			'username' => 'root',
-			'password' => '',
+			'password' => '7HMUfy5xsEav2Dr3',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
