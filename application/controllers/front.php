@@ -103,7 +103,16 @@ class Front_Controller extends Base_Controller
      */
     public function action_filelist($id = 0)
     {
+        $files = new Files;
 
+        if ($id > 0)
+            $list = $files->getPaginated([
+                ['id', '=', intval($id)]
+            ]);
+        else
+            $list = $files->getPaginated();
+
+        $this->loadPage('filelist', ['File listing'], array('files' => $list));
     }
 
     /**

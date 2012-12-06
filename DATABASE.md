@@ -27,23 +27,23 @@ id_group            INT, primary key
 group_name          VARCHAR(32)  
 group_colour        VARCHAR(6)  
 group_req_files     INT // Required files to get promoted to this rank. -1 for non-file amount dependent groups.  
-group_default       TINYINT // Is this the default group?  
+group_is_default    TINYINT // Is this the default group?  
 group_is_mod        TINYINT  
 group_is_admin      TINYINT  
-group_hidden        TINYINT  
+group_is_hidden     TINYINT  
 
 pre_files
 ---------
 id_file             INT, primary key  
 id_user             INT, key  
 file_name           VARCHAR(64)  
-file_size           INT  
-file_time           DATETIME // Upload time  
-file_type           VARCHAR(64) // File MIME type (previously "file" or "image")  
-file_ip             VARCHAR(40)  
-file_downloads      INT  
-file_hidden         TINYINT  
-file_uploader       VARCHAR(32) // If the user from id_user is not found, show this name  
+file_size           BIGINT  
+file_type           VARCHAR(64), key // File MIME type (previously "file" or "image")  
+file_downloads      INT, key  
+file_is_hidden      TINYINT  
+file_upload_ip      VARCHAR(40)  
+file_upload_time    DATETIME  
+file_upload_name    VARCHAR(32) // If the user from id_user is not found, show this name  
 
 pre_referrers
 -------------
