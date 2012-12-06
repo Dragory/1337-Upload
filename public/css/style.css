@@ -150,6 +150,84 @@ a {
     }
 
 /**
+ * Pagination
+ */
+.pagination ul {
+    list-style: none;
+    margin: 16px 0;
+    padding: 0;
+}
+.pagination li {
+    display: inline;
+}
+.pagination .previous_page {
+    padding-right: 16px;
+}
+.pagination .next_page {
+    padding-left: 16px;
+}
+.pagination .disabled a {
+    color: #888;
+    text-decoration: none;
+}
+.pagination .active a {
+    color: #888;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/**
+ * Generic tables for files, users, etc.
+ */
+.table-generic {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-generic th {
+    text-align: center;
+    padding: 6px 0;
+
+    border: 1px solid #ccc;
+
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(239,239,239,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(239,239,239,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+}
+.table-generic th, .table-generic th a {
+    color: #444;
+    text-decoration: none;
+    font-weight: bold;
+}
+.table-generic td {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+/* Files */
+.table-files-name {
+    word-wrap: break-word;
+    width: 55%;
+}
+.table-files-time {
+    width: 10%;
+}
+.table-files-settings {
+    width: 10%;
+}
+.table-files-uploader {
+    width: 15%;
+}
+.table-files-settings {
+    width: 10%;
+}
+
+/**
  * Password updating page
  */
 #content-password-wrap {

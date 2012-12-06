@@ -105,12 +105,22 @@ class Front_Controller extends Base_Controller
     {
         $files = new Files;
 
+        // If we're getting the files of a specific
+        // user, get those.
         if ($id > 0)
             $list = $files->getPaginated([
-                ['id', '=', intval($id)]
-            ]);
+                ['id_user', '=', intval($id)]
+            ],
+            [Input::get('order'), Input::get('dir')]);
+        // Otherwise go for all of them.
         else
-            $list = $files->getPaginated();
+            $list = $files->getPaginated([], [Input::get('order'), Input::get('dir')]);
+
+        // Make sure the pagination links have the sorting column and direction
+        $list->appends(['order' => Input::get('order'), 'dir' => Input::get('dir')]);
+
+        // Check which files we should hide from the viewer
+        $list->results = $files->markVisibility($list->results, $this->currentUser);
 
         $this->loadPage('filelist', ['File listing'], array('files' => $list));
     }

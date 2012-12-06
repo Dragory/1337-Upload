@@ -40,6 +40,7 @@ Route::post('legacy_password_post', ['as' => 'legacy_password_post', 'uses' => '
 Route::get('upload', ['as' => 'upload', 'uses' => 'front@upload']);
 Route::get('blog', ['as' => 'blog', 'uses' => 'front@blog']);
 Route::get('filelist', ['as' => 'filelist', 'uses' => 'front@filelist']);
+Route::get('filelist/(:num)', ['as' => 'filelist_user', 'uses' => 'front@filelist']);
 Route::get('support', ['as' => 'support', 'uses' => 'front@support']);
 Route::get('admin', ['as' => 'admin', 'uses' => 'front@admin']);
 
