@@ -49,11 +49,14 @@ Route::get('profile/(:num)', ['as' => 'profile', 'uses' => 'front@profile']);
 Route::get('misc', ['as' => 'misc', 'uses' => 'front@misc']);
 Route::get('misc/(:any)', ['as' => 'misc_sub', 'uses' => 'front@misc']);
 
+// Uploading
+Route::post('upload_post', ['as' => 'upload_post', 'uses' => 'uploader@upload']);
+
 // Searching
 Route::get('search/(:any)', ['as' => 'search', 'uses' => 'front@search']);
 
 // Logging in
-Route::post('/login_post', ['as' => 'login_post', 'uses' => 'front@login_post', 'before' => 'csrf']);
+Route::post('login_post', ['as' => 'login_post', 'uses' => 'front@login_post', 'before' => 'csrf']);
 
 /*
 |--------------------------------------------------------------------------

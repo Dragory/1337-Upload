@@ -3,7 +3,7 @@
 </div>
 <div id="header-search">
     <form action="{{ URL::to_route('search') }}" method="get" accept-encoding="UTF-8">
-        <input type="text" name="search" value="" placeholder="{{ __('front.search_placeholder') }}">
+        <input type="text" name="search" value="" title="Search" placeholder="{{ __('front.search_placeholder') }}">
         <input type="submit" value="{{ __('front.search_submit') }}">
     </form>
 </div>

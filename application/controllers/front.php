@@ -16,6 +16,7 @@ class Front_Controller extends Base_Controller
         if ($id_user != null) $this->currentUser = $users->getUser($id_user);
 
         $this->title = ['1337 Upload'];
+        $this->layout->user = $this->currentUser;
     }
 
     protected function loadPage($view, Array $title = null, $data = null)

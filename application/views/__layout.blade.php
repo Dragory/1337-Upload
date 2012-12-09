@@ -37,7 +37,20 @@
         </div><!-- id="footer-wrap" -->
     </div><!-- id="footer" -->
 
+    <script type="text/javascript">
+        var baseUrl   = '{{ URL::base() }}';
+        var uploadUrl = '{{ URL::to_route('upload_post') }}';
+
+        var csrf_token = '{{ Session::token() }}';
+
+        var loggedIn = {{ $user ? 'true' : 'false' }};
+
+<?php if ($user): ?>
+        var token  = '{{ str_replace("'", null, $user->user_token) }}';
+<?php endif; ?>
+    </script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/uploader/fineuploader-3.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
 </body>
 </html>
